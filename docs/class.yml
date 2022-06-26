@@ -1,0 +1,194 @@
+paths:
+  /classroom/dashboard:
+    get:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "See all the classes you are a part of."
+      description: "Login as student or tutor to see all the classes you are a part of."
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "string"
+                  name:
+                    type: "string"
+                  description:
+                    type: "string"
+                  admin:
+                    type: "string"      
+                  students:
+                    type: "array"
+                    items:
+                      $ref: ""
+                  files:
+                    type: "array"
+                    items:
+                      $ref: ""
+                  createdAt:
+                    type: "string"
+                  updatedAt:
+                    type: "string"
+  /classroom/add:
+    post:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "Create a new Class"
+      description: "Login as tutor to Create a new Classes."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                description:
+                  type: "string" 
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"
+  /classroom/update/{classId}:
+    put:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "Update a Class"
+      description: "Login as tutor to Update an existing Class you are an admin of."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                description:
+                  type: "string" 
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"   
+  /classroom/delete/{classId}:
+    delete:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "Delete a Class"
+      description: "Login as tutor to Delete an existing Class you are an admin of."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string" 
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"
+  /classroom/{classId}/addStudent:
+    post:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "Add a student to a Class"
+      description: "Login as tutor to Add a student to a Class."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                studentId:
+                  type: "string"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"
+  /classroom/{classId}/deleteStudent:
+    delete:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Class"
+      summary: "Remove a student from a Class"
+      description: "Login as tutor to Remove a student from a Class."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                studentId:
+                  type: "string"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"                                                    

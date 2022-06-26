@@ -1,0 +1,174 @@
+paths:
+  /classroom/dashboard/{classId}:
+    get:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Files"
+      summary: "See all the files of a given class."
+      description: "Given a class, all the files which are not deleted in the class will be returned."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "string"
+                  files:
+                    type: "array"
+                    items:
+                      $ref: ""
+  /classroom/files/filter:
+    get:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Files"
+      summary: "Search and filter files"
+      description: "Search files as student or tutor by filename and filter files which can have values AUDIO, VIDEO, IMAGE, etc."
+      parameters:
+        - name: filetype
+          in: query
+          description: "filetype's query"
+        - name: filename
+          in: query
+          description: "filenames's query"
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "string"
+                  files:
+                    type: "array"
+                    items:
+                      $ref: ""
+  /classroom/{classId}/addFile:
+    post:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Files"
+      summary: "Add a new file to a Class"
+      description: "Login as tutor to Add a new file to an existing Class."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: "string"
+                description:
+                  type: "string"
+                classfiles:
+                  type: "string"
+                  format: "base64"   
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"
+  /classroom/{classId}/updateFile/{fileId}:
+    put:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Files"
+      summary: "Edit a file"
+      description: "Login as tutor to Edit a file from an existing Class."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+        - name: fileId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: "string"
+                description:
+                  type: "string"
+                classfiles:
+                  type: "string"
+                  format: "base64"   
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"
+  /classroom/{classId}/deleteFile/{fileId}:
+    delete:
+      security: 
+        - bearerAuth: []
+      tags:
+        - "Files"
+      summary: "Delete a file"
+      description: "Login as tutor to Delete a file from an existing Class."
+      parameters:
+        - name: classId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"
+        - name: fileId
+          in: path
+          description: "Request Params"
+          required: true
+          type: "string"   
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              message:
+                type: "string"              
