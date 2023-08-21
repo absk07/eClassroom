@@ -7,7 +7,7 @@ const ExpressError = require('./utils/ExpressError');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/toddle';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/eduventure';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
